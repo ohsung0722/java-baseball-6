@@ -8,30 +8,49 @@ import java.util.List;
 public class GamePlayer {
     private GamePhrases gamePhrases;
     private RandomNumberGenerator randomNumberGenerator;
-    private boolean isEnteredGameEndingWord = false;
+    private AnswerComparator answerComparator;
+    private boolean isEnteredGameEndingWord = true;
     public GamePlayer(GamePhrases gamePhrases){
         this.gamePhrases = gamePhrases;
         this.randomNumberGenerator = new RandomNumberGenerator();
+        this.answerComparator = new AnswerComparator(gamePhrases);
     }
     public void playGameUntilCompletion(){
         //2를 눌러 종료할 때 까지 루프를 돌리기 위한 반복문
-        while(!isEnteredGameEndingWord){
+        while(isEnteredGameEndingWord){
             playGame();
         }
     }
 
     private void playGame(){
-        //정답을 맞출 때 까지 루프를 돌리기 위한 반복문
         boolean isCorrectNumber = false;
 
         List<Integer> randomNumber = randomNumberGenerator.generateRandomNumbers();
+        System.out.println(randomNumber);
 
+        //정답을 입력할 때 까지 루프를 돌리기 위한 반복문
         while(!isCorrectNumber){
             gamePhrases.printEnteredNumberComment();
-            Console.readLine();
+            isCorrectNumber = answerComparator.isCompareAnswer(randomNumber);
         }
 
+        isEnteredGameEndingWord = isGameContinued();
     }
 
+    //게임을 계속 할지 아닐지 여부를 판단하는 함수
+    private boolean isGameContinued(){
+        if(getUserDecision().equals("1")) {
+            return true;
+        } else if(getUserDecision().equals("2")){
+            return false;
+        } else{
+            throw new IllegalArgumentException();
+        }
+    }
+
+    //게임 지속에 대한 사용자 의견을 리턴받는 함수
+    private String getUserDecision(){
+        return Console.readLine();
+    }
 
 }
