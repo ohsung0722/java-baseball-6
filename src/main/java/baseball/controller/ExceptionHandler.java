@@ -42,7 +42,7 @@ public class ExceptionHandler {
 
     //중복된 값을 입력했는지 판단하는 함수
     private void containsDuplicate(String number){
-        for(int i = 0; i < number.length(); i++){ .
+        for(int i = 0; i < number.length(); i++){
             char currentChar = number.charAt(i);
 
             for(int j = i + 1; j < number.length(); j++){
