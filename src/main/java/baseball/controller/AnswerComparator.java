@@ -8,8 +8,10 @@ import java.util.List;
 
 public class AnswerComparator {
     GamePhrases gamePhrases;
+    ExceptionHandler exceptionHandler;
     public AnswerComparator(GamePhrases gamePhrases){
         this.gamePhrases = gamePhrases;
+        this.exceptionHandler = new ExceptionHandler();
     }
     public boolean isCompareAnswer(List<Integer> randomNumbers){
         List<Integer> userInputNumber = convertStringToList(getUserInputNumber());
@@ -20,7 +22,11 @@ public class AnswerComparator {
     }
 
     private String getUserInputNumber(){
-        return Console.readLine();
+        String userInputNumber = Console.readLine();
+
+        exceptionHandler.userInputException(userInputNumber);
+
+        return userInputNumber;
     }
 
     //문자열을 리스트형으로 바꿔주는 함수

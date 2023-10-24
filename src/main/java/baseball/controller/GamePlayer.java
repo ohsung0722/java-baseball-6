@@ -28,7 +28,6 @@ public class GamePlayer {
         boolean isCorrectNumber = false;
 
         List<Integer> randomNumber = randomNumberGenerator.generateRandomNumbers();
-        System.out.println(randomNumber);
 
         //정답을 입력할 때 까지 루프를 돌리기 위한 반복문
         while(!isCorrectNumber){
