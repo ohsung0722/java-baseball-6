@@ -9,16 +9,18 @@ public class GamePlayer {
     private GamePhrases gamePhrases;
     private RandomNumberGenerator randomNumberGenerator;
     private AnswerComparator answerComparator;
-    private boolean isEnteredGameEndingWord = true;
+
     public GamePlayer(GamePhrases gamePhrases){
         this.gamePhrases = gamePhrases;
         this.randomNumberGenerator = new RandomNumberGenerator();
         this.answerComparator = new AnswerComparator(gamePhrases);
     }
     public void playGameUntilCompletion(){
+        boolean isEnteredGameEndingWord = true;
         //2를 눌러 종료할 때 까지 루프를 돌리기 위한 반복문
         while(isEnteredGameEndingWord){
             playGame();
+            isEnteredGameEndingWord = isGameContinued();
         }
     }
 
@@ -33,15 +35,15 @@ public class GamePlayer {
             gamePhrases.printEnteredNumberComment();
             isCorrectNumber = answerComparator.isCompareAnswer(randomNumber);
         }
-
-        isEnteredGameEndingWord = isGameContinued();
     }
 
     //게임을 계속 할지 아닐지 여부를 판단하는 함수
     private boolean isGameContinued(){
-        if(getUserDecision().equals("1")) {
+        String userDecision = getUserDecision();
+
+        if(userDecision.equals("1")) {
             return true;
-        } else if(getUserDecision().equals("2")){
+        } else if(userDecision.equals("2")){
             return false;
         } else{
             throw new IllegalArgumentException();
