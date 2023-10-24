@@ -6,6 +6,7 @@ public class ExceptionHandler {
         lengthException(number);
         numberException(number);
         containZero(number);
+        containsDuplicate(number);
     }
 
     //입력한 숫자가 세자리가 아닌 경우
@@ -36,6 +37,19 @@ public class ExceptionHandler {
     private void containZero(String number){
         if(number.contains("0")){
             throw new IllegalArgumentException();
+        }
+    }
+
+    //중복된 값을 입력했는지 판단하는 함수
+    private void containsDuplicate(String number){
+        for(int i = 0; i < number.length(); i++){ .
+            char currentChar = number.charAt(i);
+
+            for(int j = i + 1; j < number.length(); j++){
+                if(currentChar == number.charAt(j)){
+                    throw new IllegalArgumentException();
+                }
+            }
         }
     }
 }
